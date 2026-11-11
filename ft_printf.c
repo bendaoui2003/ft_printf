@@ -1,40 +1,41 @@
-#include <stdarg.h>
-#include <stdio.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbendaou <mbendaou@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/11 11:15:36 by mbendaou          #+#    #+#             */
+/*   Updated: 2026/11/11 20:08:50 by mbendaou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
 
 int	ft_printf(const char *format, ...)
 {
 	int		count;
-	int		i;
-	char	c;
+	int		result;
 	va_list	ap;
 
 	va_start(ap, format);
 	count = 0;
-	i = 0;
-	while (format[i])
+	while (*format)
 	{
-		if (format[i] == '%')
-		{
-			if (format[i + 1] == 'c')
-			{
-				c = va_arg(ap, int);
-				write(1, &c, 1);
-				count++;
-			}
-			i += 2;
-		}
+		if (*format == '%' && format[1])
+			result = ft_handle_format(*++format, ap);
+		else if (*format == '%')
+			break ;
 		else
+			result = write(1, format, 1);
+		if (result == -1)
 		{
-			write(1, &format[i], 1);
-			i++;
-			count++;
+			va_end(ap);
+			return (-1);
 		}
+		format++;
+		count += result;
 	}
 	va_end(ap);
 	return (count);
-}
-int	main(void)
-{
-	ft_printf("A%cB%cC\n", 'X', 'Y');
 }

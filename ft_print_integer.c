@@ -6,11 +6,12 @@
 /*   By: mbendaou <mbendaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/08 16:27:34 by mbendaou          #+#    #+#             */
-/*   Updated: 2026/11/08 16:34:18 by mbendaou         ###   ########.fr       */
+/*   Updated: 2026/11/11 11:29:07 by mbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "ft_printf.h"
+
 static int	count_len(long nb)
 {
 	int	len;
@@ -30,11 +31,12 @@ static int	count_len(long nb)
 	}
 	return (len);
 }
+
 int	ft_print_integer(int nb)
 {
-	long n;
-	int result;
-	char c;
+	long	n;
+	int		result;
+	char	c;
 
 	n = nb;
 	if (n < 0)
