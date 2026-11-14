@@ -6,53 +6,37 @@
 /*   By: mbendaou <mbendaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/08 16:27:34 by mbendaou          #+#    #+#             */
-/*   Updated: 2026/11/11 11:29:07 by mbendaou         ###   ########.fr       */
+/*   Updated: 2026/11/12 11:51:52 by mbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static int	count_len(long nb)
-{
-	int	len;
-
-	len = 0;
-	if (nb == 0)
-		return (1);
-	if (nb < 0)
-	{
-		len++;
-		nb = -nb;
-	}
-	while (nb != 0)
-	{
-		nb = nb / 10;
-		len++;
-	}
-	return (len);
-}
 
 int	ft_print_integer(int nb)
 {
 	long	n;
 	int		result;
 	char	c;
+	int		ret;
 
 	n = nb;
+	result = 0;
 	if (n < 0)
 	{
 		if (write(1, "-", 1) == -1)
 			return (-1);
 		n = -n;
+		result = 1;
 	}
 	if (n >= 10)
 	{
-		result = ft_print_integer(n / 10);
-		if (result == -1)
+		ret = ft_print_integer(n / 10);
+		if (ret == -1)
 			return (-1);
+		result += ret;
 	}
 	c = n % 10 + '0';
 	if (write(1, &c, 1) == -1)
 		return (-1);
-	return (count_len(nb));
+	return (result + 1);
 }

@@ -71,7 +71,7 @@ int main(void)
 Compile:
 
 ```bash
-cc main.c -L. -lftprintf -I. -o program
+cc -Wall -Wextra -Werror main.c libftprintf.a -o program
 ```
 
 Run:

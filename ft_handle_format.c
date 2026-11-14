@@ -21,7 +21,7 @@ int	ft_handle_format(char speci, va_list ap)
 	else if (speci == 'd' || speci == 'i')
 		return (ft_print_integer(va_arg(ap, int)));
 	else if (speci == '%')
-		return (ft_print_percent('%'));
+		return (ft_print_char('%'));
 	else if (speci == 'u')
 		return (ft_print_unsigned_int(va_arg(ap, unsigned int)));
 	else if (speci == 'x')
